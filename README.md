@@ -357,6 +357,8 @@ predict_cutoff_roc <- predict_check %>%
 caret::confusionMatrix(predict_cutoff_roc$`Purchased Bike`, predict_cutoff_roc$predict_biked)
 
 ```
+
+```
 A tibble: 177 × 3
 Purchased Bike	predict_value	predict_biked
 <fct>	<dbl>	<fct>
@@ -421,9 +423,6 @@ Yes	0.2059617	No
 No	0.2031100	No
 No	0.2823118	No
 Yes	0.3698322	No
-
-```
-
 ```
 
 ```
