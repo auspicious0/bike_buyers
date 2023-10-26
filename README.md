@@ -470,4 +470,4 @@ Prediction No Yes
 ## 문의
 프로젝트에 관한 문의나 버그 리포트는 [이슈 페이지](https://github.com/auspicious0/bike_buyers/issues)를 통해 제출해주세요.
 
-보다 더 자세한 내용을 원하신다면 [보고서](https://github.com/auspicious0/insurance/blob/main/%EC%84%A0%ED%98%95%ED%9A%8C%EA%B7%80.ipynb) 를 확인해 주시기 바랍니다.
+보다 더 자세한 내용을 원하신다면 [보고서](https://github.com/auspicious0/bike_buyers/blob/main/%EB%A1%9C%EC%A7%80%EC%8A%A4%ED%8B%B1%ED%9A%8C%EA%B7%80_bike_buyers.ipynb) 를 확인해 주시기 바랍니다.
