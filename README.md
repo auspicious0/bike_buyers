@@ -1,22 +1,19 @@
-- [자전거 구매자 정보를 바탕으로 로지스틱 회귀 분석](#자전거 구매자 정보를 바탕으로 로지스틱 회귀 분석)
-  * [패키지 설치 및 그래프 설정](#---------------)
-  * [데이터 수집](#------)
-  * [데이터 전처리](#-------)
-  * [카이제곱 검정](#-------)
-  * [로지스틱 회귀 분석](#----------)
-  * [변수 선택 (Backward Elimination)](#-------backward-elimination-)
-  * [모델 평가](#-----)
-    + [ROC 곡선](#roc---)
-    + [예측 및 성능 평가](#----------)
-  * [문의](#--)
-
-<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
-
+- [자전거 구매자 정보를 바탕으로 로지스틱 회귀 분석](#---------------------------)
+  * [1. 패키지 설치 및 그래프 설정](#1----------------)
+  * [2. 데이터 수집](#2-------)
+  * [3. 데이터 전처리](#3--------)
+  * [4. 카이제곱 검정](#4--------)
+  * [5. 로지스틱 회귀 분석](#5-----------)
+  * [6. 변수 선택 (Backward Elimination)](#6--------backward-elimination-)
+  * [7. 모델 평가](#7------)
+    + [7-1. ROC 곡선](#7-1-roc---)
+    + [7-2. 예측 및 성능 평가](#7-2-----------)
+  * [8. 문의](#8---)
 # 자전거 구매자 정보를 바탕으로 로지스틱 회귀 분석
 
 이 프로젝트는 자전거 구매자 정보를 바탕으로 로지스틱 회귀 분석을 수행하는 것을 목표로 합니다. 자전거 구매에 영향을 미치는 요인을 파악하고 예측하는 과정을 다룹니다.
 
-## 패키지 설치 및 그래프 설정
+## 1. 패키지 설치 및 그래프 설정
 
 프로젝트를 시작하기 전, 필요한 R 패키지를 설치하고 그래프 설정을 합니다.
  ```
@@ -33,7 +30,7 @@ install.packages("caret")
 options(repr.plot.width=7, repr.plot.height=7)
 ```
 
-## 데이터 수집
+## 2. 데이터 수집
 
 자전거 구매자 정보 데이터는 Kaggle에서 제공되며 다음 링크에서 얻을 수 있습니다:
 
@@ -52,7 +49,7 @@ DF<-fread("bike_buyers.csv",header=T,encoding="UTF-8")%>%as_tibble()
 DF%>%show()
 ```
 
-## 데이터 전처리
+## 3. 데이터 전처리
 
 데이터를 불러온 후, 결측값 처리와 이상값 처리를 수행합니다. 데이터의 구조를 확인하고 필요한 변수를 팩터(factor)로 변환합니다. 
 
@@ -98,7 +95,7 @@ DF<-select(DF,-ID)%>%
   mutate_at(c("Marital Status","Gender","Education","Occupation","Home Owner","Region","Purchased Bike"),factor)
 ```
 
-## 카이제곱 검정
+## 4. 카이제곱 검정
 
 1. 자전거 구매 여부와 결혼 상태 (Marital Status) 간의 연관관계
 
@@ -264,7 +261,7 @@ Chi^2 =  0.9315954     d.f. =  1     p =  0.3344487
 
 
 
-## 로지스틱 회귀 분석
+## 5. 로지스틱 회귀 분석
 
 학습 데이터와 테스트 데이터 분리
 데이터를 학습 데이터와 테스트 데이터로 분리하고 모델 학습을 준비합니다:
@@ -323,7 +320,7 @@ AIC: 917.31
 
 Number of Fisher Scoring iterations: 4
 ```
-## 변수 선택 (Backward Elimination)
+## 6. 변수 선택 (Backward Elimination)
 
 학습된 모델에서 불필요한 변수를 제거하기 위해 역방향 제거 방법을 사용합니다:
 
@@ -331,9 +328,9 @@ Number of Fisher Scoring iterations: 4
 mback <- step(m, direction = "backward")
 ```
 
-## 모델 평가
+## 7. 모델 평가
 
-### ROC 곡선
+### 7-1. ROC 곡선
 
 ROC 곡선을 사용하여 모델의 성능을 시각화하고 적절한 CUT-OFF 값을 선택합니다:
 
@@ -345,7 +342,7 @@ pROC::plot.roc(roc_c, col = "royalblue", print.auc = TRUE, max.auc.polygon = TRU
 ```
 ![image](https://github.com/auspicious0/bike_buyers/assets/108572025/414a0572-34d0-4f25-b544-f728f755ce7c)
 
-### 예측 및 성능 평가
+### 7-2. 예측 및 성능 평가
 
 선택한 CUT-OFF 값으로 예측을 수행하고 모델의 성능을 혼돈 매트릭스를 통해 확인합니다:
 
@@ -481,7 +478,7 @@ Prediction No Yes
 따라서 자전거를 살 것인지 어느 정도 유의미한 예측을 할 수 있었습니다. 예측의 정도가 크지 않아 신뢰도가 높진 않지만 어떤 병원이나 심각한 자료 분석을 수행하는 경우가 아니기 때문에 참고 정도의 자료로 작용할 수 있을 것으로 보입니다.
 
 
-## 문의
+## 8. 문의
 프로젝트에 관한 문의나 버그 리포트는 [이슈 페이지](https://github.com/auspicious0/bike_buyers/issues)를 통해 제출해주세요.
 
 보다 더 자세한 내용을 원하신다면 [보고서](https://github.com/auspicious0/bike_buyers/blob/main/%EB%A1%9C%EC%A7%80%EC%8A%A4%ED%8B%B1%ED%9A%8C%EA%B7%80_bike_buyers.ipynb) 를 확인해 주시기 바랍니다.
